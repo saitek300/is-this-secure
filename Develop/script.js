@@ -25,7 +25,8 @@ var specialCharacters = [
   '.',
 ];
 
-var numericCharacters = ['0',
+var numericCharacters = [
+'0',
 '1',
 '2',
 '3',
@@ -37,7 +38,7 @@ var numericCharacters = ['0',
 '9'
 ];
 
-var lowerCasedCharacters = [
+var lowercaseCharacters = [
   'a',
   'b',
   'c',
@@ -66,7 +67,7 @@ var lowerCasedCharacters = [
   'z',
 ];
 
-var upperCasedCharacters = [
+var uppercaseCharacters = [
   'A',
   'B',
   'C',
@@ -95,7 +96,7 @@ var upperCasedCharacters = [
   'Z',
 ];
 
-function getPasswordOptions() {
+function getPasswordArray() {
   
   var length = parseInt(
     prompt('How many characters would you like your password to contain?'),
@@ -135,8 +136,8 @@ function getPasswordOptions() {
   if (
     hasSpecialCharacters === false &&
     hasNumericCharacters === false &&
-    hasLowerCasedCharacters === false &&
-    hasUpperCasedCharacters === false
+    hasLowercaseCharacters === false &&
+    hasUppercaseCharacters === false
   ) {
     alert("please pick a character type");
     return null;
@@ -152,7 +153,67 @@ var passwordArrays = {
 
 return passwordArrays;
 }
+function getRandom(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  var randomElement = array[randomIndex];
 
+  return randomElement;
+}
+
+
+function generatePassword() {
+  var options = getPasswordArray();
+  
+  var result = [];
+
+  
+  var possibleCharacters = [];
+
+  
+  var guaranteedCharacters = [];
+
+  
+  if (!options) return null;
+
+
+  if (options.hasSpecialCharacters) {
+    possibleCharacters = possibleCharacters.concat(specialCharacters);
+    guaranteedCharacters.push(getRandom(specialCharacters));
+  }
+
+  
+  if (options.hasNumericCharacters) {
+    possibleCharacters = possibleCharacters.concat(numericCharacters);
+    guaranteedCharacters.push(getRandom(numericCharacters));
+  }
+
+  
+  if (options.hasLowercaseCharacters) {
+    possibleCharacters = possibleCharacters.concat(lowercaseCharacters);
+    guaranteedCharacters.push(getRandom(lowercaseCharacters));
+  }
+
+  
+  if (options.hasUppercaseCharacters) {
+    possibleCharacters = possibleCharacters.concat(uppercaseCharacters);
+    guaranteedCharacters.push(getRandom(uppercaseCharacters));
+  }
+
+  
+  for (var i = 0; i < options.length; i++) {
+    var possibleCharacter = getRandom(possibleCharacters);
+
+    result.push(possibleCharacter);
+  }
+
+  
+  for (var i = 0; i < guaranteedCharacters.length; i++) {
+    result[i] = guaranteedCharacters[i];
+  }
+
+  
+  return result.join('');
+}
 
 
 
